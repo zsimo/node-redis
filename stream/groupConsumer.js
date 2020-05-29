@@ -19,6 +19,9 @@ const { promisify } = require("util");
 const XACK = promisify(client.XACK).bind(client);
 const XDEL = promisify(client.XDEL).bind(client);
 
+/**
+ * All the pending (not yet processed) items will be delivered to all the running workers, without any duplication.
+ */
 function consume () {
 
     // 0 means block forever until a new item
@@ -56,13 +59,6 @@ function consume () {
     });
     
 }
-
-
-/** 
-client.XCLAIM(config.stream_name, config.group_name, uniqueConsumerName, 0, 0, function (err, reply) {
-    console.log(err, JSON.stringify(reply, null, 2));
-});
-*/
 
 client.XGROUP("CREATE", config.stream_name, config.group_name, 0, function (err, reply) {
     console.log(err, reply);
