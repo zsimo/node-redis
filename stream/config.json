@@ -1,0 +1,4 @@
+{
+    "stream_name": "node-redis-test-stream",
+    "group_name": "node-redis-test-group"
+}
