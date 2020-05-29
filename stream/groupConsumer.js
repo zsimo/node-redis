@@ -25,7 +25,7 @@ const XDEL = promisify(client.XDEL).bind(client);
 function consume () {
 
     // 0 means block forever until a new item
-    // 0 means give me everything from beginning or > never provided to other workers
+    // 0 means give me everything from beginning or ">" receive only messages that were never delivered to any other consumer
     client.XREADGROUP ("GROUP", config.group_name, uniqueConsumerName, "BLOCK", 0, "STREAMS", config.stream_name, ">", async function (err, reply) {
         try {
             
@@ -41,6 +41,7 @@ function consume () {
                 // do some operation with the value...
                 console.log("value from the stream", value);
 
+                //throw new Error("ciao");
                 // then tell redis that the item has been processed
                 var xackResult = await XACK(config.stream_name, config.group_name, id);
 
