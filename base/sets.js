@@ -6,7 +6,7 @@ const { promisify } = require("util");
 const SADD = promisify(client.SADD).bind(client);
 const SCARD = promisify(client.SCARD).bind(client);
 const SMEMBERS = promisify(client.SMEMBERS).bind(client);
-
+const SISMEMBER = promisify(client.SISMEMBER).bind(client);
 
 // sets do not allow duplication
 var name = "myset";
@@ -19,6 +19,8 @@ async function run () {
     var value = await SCARD(name);
     console.log(value);
     value = await SMEMBERS(name);
+    console.log(value);
+    value = await SISMEMBER(name, 4);
     console.log(value);
 
     client.quit();
