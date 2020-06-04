@@ -13,4 +13,14 @@ var redisOptions = {
 
 var client = redis.createClient(redisOptions);
 
+client.on("ready", function () {
+    console.log("redis client ready");
+});
+client.on("end", function () {
+    console.log("redis connection has closed");
+});
+client.on("reconnecting", function (o) {
+    console.log("redis client reconnecting", o.attempt, o.delay);
+});
+
 module.exports = client;

@@ -7,10 +7,6 @@ var count = 0;
 
 
 setInterval(function () {
-
-    client.XPENDING(config.stream_name, config.group_name, function (err, reply) {
-        console.log("pending: ", reply[0]);
-    });
     
     client.XLEN(config.stream_name, function (err, reply) {
         console.log("total", reply);
