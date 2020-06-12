@@ -1,0 +1,1 @@
+sen all commands and receives all in a single round trip
