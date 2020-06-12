@@ -1,1 +1,1 @@
-lua script allows atomic operation (like transations) 
+lua script allows atomic operation (like transactions) 
