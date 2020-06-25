@@ -27,6 +27,26 @@ async function run () {
 }
 
 
+// in case of very large sets, use a cursor
+const getMembers = async (key) => {
+    const members = [];
+    let cursorPosition = '0';
+
+    do {
+        let scanResponse = await client.sscanAsync(
+            key,
+            cursorPosition,
+            'MATCH',
+            '*',
+            'COUNT',
+            1000
+        );
+        cursorPosition = scanResponse[0];
+        members.push(...scanResponse[1]);
+    } while (cursorPosition !== '0');
+
+    return members;
+};
 
 try {
     run();
